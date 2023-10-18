@@ -1,0 +1,87 @@
+---
+# country > state > city > 2building > 5floors > 5apt
+- name: Create directory structure and files
+  hosts: 10.20.20.129
+  become: yes
+  vars:
+    files:
+      - "usa/ny/nyc/b1/f1/a1"
+      - "usa/ny/nyc/b1/f1/a2"
+      - "usa/ny/nyc/b1/f1/a3"
+      - "usa/ny/nyc/b1/f1/a4"
+      - "usa/ny/nyc/b1/f1/a5"
+
+      - "usa/ny/nyc/b1/f2/a1"
+      - "usa/ny/nyc/b1/f2/a2"
+      - "usa/ny/nyc/b1/f2/a3"
+      - "usa/ny/nyc/b1/f2/a4"
+      - "usa/ny/nyc/b1/f2/a5"
+
+      - "usa/ny/nyc/b1/f3/a1"
+      - "usa/ny/nyc/b1/f3/a2"
+      - "usa/ny/nyc/b1/f3/a3"
+      - "usa/ny/nyc/b1/f3/a4"
+      - "usa/ny/nyc/b1/f3/a5"
+
+      - "usa/ny/nyc/b1/f4/a1"
+      - "usa/ny/nyc/b1/f4/a2"
+      - "usa/ny/nyc/b1/f4/a3"
+      - "usa/ny/nyc/b1/f4/a4"
+      - "usa/ny/nyc/b1/f4/a5"
+
+      - "usa/ny/nyc/b1/f5/a1"
+      - "usa/ny/nyc/b1/f5/a2"
+      - "usa/ny/nyc/b1/f5/a3"
+      - "usa/ny/nyc/b1/f5/a4"
+      - "usa/ny/nyc/b1/f5/a5"
+
+      - "usa/ny/nyc/b2/f1/a1"
+      - "usa/ny/nyc/b2/f1/a2"
+      - "usa/ny/nyc/b2/f1/a3"
+      - "usa/ny/nyc/b2/f1/a4"
+      - "usa/ny/nyc/b2/f1/a5"
+
+      - "usa/ny/nyc/b2/f2/a1"
+      - "usa/ny/nyc/b2/f2/a2"
+      - "usa/ny/nyc/b2/f2/a3"
+      - "usa/ny/nyc/b2/f2/a4"
+      - "usa/ny/nyc/b2/f2/a5"
+
+      - "usa/ny/nyc/b2/f3/a1"
+      - "usa/ny/nyc/b2/f3/a2"
+      - "usa/ny/nyc/b2/f3/a3"
+      - "usa/ny/nyc/b2/f3/a4"
+      - "usa/ny/nyc/b2/f3/a5"
+
+      - "usa/ny/nyc/b2/f4/a1"
+      - "usa/ny/nyc/b2/f4/a2"
+      - "usa/ny/nyc/b2/f4/a3"
+      - "usa/ny/nyc/b2/f4/a4"
+      - "usa/ny/nyc/b2/f4/a5"
+
+      - "usa/ny/nyc/b2/f5/a1"
+      - "usa/ny/nyc/b2/f5/a2"
+      - "usa/ny/nyc/b2/f5/a3"
+      - "usa/ny/nyc/b2/f5/a4"
+      - "usa/ny/nyc/b2/f5/a5"
+
+  tasks:
+    - name: Create directory structure
+      file:
+        path: "/home/{{ item }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0744"
+      loop: "{{ files }}"
+
+    - name: Create file
+      copy:
+        content: "{{ item }}"
+        dest: "/home/{{ item }}/file"
+        owner: root
+        group: root
+        mode: "0664"
+      loop: "{{ files }}"
+
+  

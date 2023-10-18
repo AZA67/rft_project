@@ -1,0 +1,22 @@
+---
+- name: Create Directory and File with Random Content
+  hosts: all
+  become: yes # This allows the playbook to run with elevated privileges (sudo)
+
+  vars:
+    directory_path: /home/new_dir # Specify the directory path
+    file_path: /home/new_dir/random_file.txt # Specify the file path
+    file_content: "This is the random string!" # Generates random content
+
+  tasks:
+    - name: Create the directory
+      ansible.builtin.file:
+        path: "{{ directory_path }}"
+        state: directory
+        mode: "0755"
+
+    - name: Create the file with random content
+      ansible.builtin.shell: |
+        echo "{{ file_content }}" > "{{ file_path }}"
+      changed_when: false
+  
